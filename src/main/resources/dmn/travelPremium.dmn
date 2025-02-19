@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="https://kie.org/dmn/_76E84EAA-521D-4CB4-AF89-EC203F5E1129" id="_D39EC2A7-6CE5-4B60-8F2E-C19F11E28DED" name="travelPremium">
+  <itemDefinition id="_135801A3-A870-4ACF-9825-BDDA7B4CB56D" name="Trip Details" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <description>Details of the trip</description>
+    <itemComponent id="_B1F9B8EE-7091-4E03-89D7-6EDCE5002B1D" name="countries" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>string</typeRef>
+    </itemComponent>
+    <itemComponent id="_F126A048-8E42-4CE9-BCDB-18804766F3F4" name="end date" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>date</typeRef>
+    </itemComponent>
+    <itemComponent id="_ECFF8BC0-7D37-40F8-AA79-2937D568AED5" name="start date" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>date</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <itemDefinition id="_CF4C4257-0FE6-4C5E-9144-C13F4C3995C7" name="claim" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <itemComponent id="_8DE55EC2-C2DA-499B-8A22-50B0484BB5C2" name="status" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>string</typeRef>
+      <typeConstraint id="_D3D96D94-93C6-41E9-9764-314CCB42F296" kie:constraintType="enumeration">
+        <text>&quot;Approved&quot;, &quot;Denied&quot;, &quot;Pending&quot;</text>
+      </typeConstraint>
+    </itemComponent>
+    <itemComponent id="_BFE05E8F-6B1C-41B6-B017-D46180F5DE6C" name="total claim amount" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>number</typeRef>
+    </itemComponent>
+    <itemComponent id="_F325CA32-6B0F-45AE-9614-5DA10C5AE469" name="tDate" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>date</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <itemDefinition id="_2C3FE88E-F26D-43C6-B265-344ABE8145B2" name="Traveler" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <description>The traveler object for the application for trip insurance</description>
+    <itemComponent id="_468BE3DE-CE9B-4950-9450-B6C3086D2C66" name="claim history" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>claim</typeRef>
+    </itemComponent>
+    <itemComponent id="_851B8418-979F-4D8B-99AC-2B7006485343" name="age" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>number</typeRef>
+    </itemComponent>
+    <itemComponent id="_382438AA-B97C-4993-991A-AB84DB0AC79E" name="medical conditions" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>string</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <inputData name="Traveler" id="_65D50684-F467-491C-BB1C-61B1BC67829A">
+    <variable name="Traveler" id="_920ACB1D-64DE-484A-BC22-34F470BE1AC4" typeRef="Traveler" />
+  </inputData>
+  <inputData name="Trip Details" id="_9E4BC474-F758-482B-91F5-6D08770F83BB">
+    <variable name="Trip Details" id="_1350DBD5-A93F-4F6A-A410-F8F43531C13D" typeRef="Trip Details" />
+  </inputData>
+  <decision name="Final Premium" id="_775F5C21-1847-4389-B7B1-DF8289A2AD33">
+    <extensionElements>
+      <kie:attachment name="" url="" />
+    </extensionElements>
+    <variable name="Final Premium" id="_500C2554-F97D-41FD-AF44-A1BC6DB1CB9D" typeRef="number" />
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_CCDC66A9-07D3-4C2C-BF22-FD3596B8EEED" name="Default DRD" useAlternativeInputDataShape="false">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths />
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="_E992F1DC-9A6C-46AF-AE76-5E6B625A3601" dmnElementRef="_65D50684-F467-491C-BB1C-61B1BC67829A" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="140" y="280" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_4597E161-76FB-439C-A38A-D4B4365AD7EE" dmnElementRef="_9E4BC474-F758-482B-91F5-6D08770F83BB" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="440" y="280" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_EF1E942E-B2DD-43A8-B902-21D4CFEC7132" dmnElementRef="_775F5C21-1847-4389-B7B1-DF8289A2AD33" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="320" y="-60" width="160" height="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
