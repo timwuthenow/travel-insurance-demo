@@ -185,6 +185,59 @@
     <informationRequirement id="_11406EAD-E1C0-4A9E-8F06-3653BA22300E">
       <requiredInput href="#_65D50684-F467-491C-BB1C-61B1BC67829A" />
     </informationRequirement>
+    <decisionTable id="_D8D0246E-E38E-4596-B711-34B932882759" typeRef="number" hitPolicy="FIRST" label="Medical Assessment">
+      <input id="_8D2F71A3-7A7B-4ED5-A99A-C16706E8428B">
+        <inputExpression id="_8D13FFE3-9146-4CCD-9C1E-774C0C006311" typeRef="string">
+          <text>Traveler.medical conditions</text>
+        </inputExpression>
+      </input>
+      <output id="_2EC03A58-9A26-4127-A506-71029CEDDF01" name="Output-1" />
+      <annotation name="Annotations" />
+      <rule id="_72C2247A-6281-4466-8F84-01B848894793">
+        <inputEntry id="_8BA540E4-C1D5-4008-A143-CEF056B2F889">
+          <text>some condition in ? satisfies list contains([&quot;heart disease&quot;, &quot;cancer&quot;, &quot;EDS&quot;], condition)</text>
+        </inputEntry>
+        <outputEntry id="_3008A03C-81BD-411E-8496-963569562AFC">
+          <text>2</text>
+        </outputEntry>
+        <annotationEntry>
+          <text>&quot;Heart disease or cancer Risk&quot;</text>
+        </annotationEntry>
+      </rule>
+      <rule id="_B50904AD-8E06-41D8-B88F-91AE7A573BAC">
+        <inputEntry id="_B2FDA94B-B4FE-477E-A1B4-8C1800360C61">
+          <text>some condition in ? satisfies list contains([&quot;diabetes&quot;, &quot;asthma&quot;], condition)</text>
+        </inputEntry>
+        <outputEntry id="_F2EBA5FD-0CEB-465C-972D-271611F8D4C1">
+          <text>1.5</text>
+        </outputEntry>
+        <annotationEntry>
+          <text>&quot;Diabetes or Asthma Risk&quot;</text>
+        </annotationEntry>
+      </rule>
+      <rule id="_7675662F-A341-4852-A756-A69D7DF6E679">
+        <inputEntry id="_0850E858-B92E-4AB9-8697-1621838EC540">
+          <text>some condition in ? satisfies list contains([&quot;high blood pressure&quot;], condition)</text>
+        </inputEntry>
+        <outputEntry id="_3D7E64BD-AC5D-4138-8613-53A9D8B35329">
+          <text>1.2</text>
+        </outputEntry>
+        <annotationEntry>
+          <text>&quot;High Blood Pressure Risk&quot;</text>
+        </annotationEntry>
+      </rule>
+      <rule id="_E8A32505-B56C-4DFB-ACEA-DD47A8C834E1">
+        <inputEntry id="_8D3A744A-3E46-4718-800D-31212034F9A2">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="_DA48D573-EFEA-4922-A955-8172F4B2EC5D">
+          <text>1</text>
+        </outputEntry>
+        <annotationEntry>
+          <text>&quot;Otherwise&quot;</text>
+        </annotationEntry>
+      </rule>
+    </decisionTable>
   </decision>
   <decision name="Destination Risk Factor" id="_47922A50-7F47-489C-BDD3-DBEB8AEAB90D">
     <variable name="Destination Risk Factor" id="_F184D3A1-806C-4B0A-864A-327D27122E39" typeRef="number" />
@@ -212,6 +265,12 @@
             <kie:width>60</kie:width>
             <kie:width>510</kie:width>
             <kie:width>118</kie:width>
+            <kie:width>240</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_D8D0246E-E38E-4596-B711-34B932882759">
+            <kie:width>60</kie:width>
+            <kie:width>668</kie:width>
+            <kie:width>151</kie:width>
             <kie:width>240</kie:width>
           </kie:ComponentWidths>
         </kie:ComponentsWidthsExtension>
