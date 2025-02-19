@@ -67,6 +67,48 @@
     <informationRequirement id="_E37054BE-2A55-4BDB-884D-0EA6F7CA4E39">
       <requiredInput href="#_65D50684-F467-491C-BB1C-61B1BC67829A" />
     </informationRequirement>
+    <decisionTable id="_587DF773-9786-47B7-8A9D-77A8D5AF2332" typeRef="number" hitPolicy="UNIQUE" label="Base Premium">
+      <input id="_8FFDCD09-99F5-4195-84BE-06C3CB54A622">
+        <inputExpression id="_5B2FFD4E-FEBE-4892-8148-54A1D3EC1F54" typeRef="number">
+          <text>Traveler.age</text>
+        </inputExpression>
+      </input>
+      <output id="_7D99F9FF-2965-47C3-AFC7-D67362FBF369" name="Output-1" />
+      <annotation name="Annotations" />
+      <rule id="_BB86782A-DB0D-4FF5-9674-ECE4D095187A">
+        <inputEntry id="_89DD3A95-EB50-47C8-BEE5-B61391AFE784">
+          <text>&lt;=25</text>
+        </inputEntry>
+        <outputEntry id="_D30CA4FC-8998-4F38-A160-3E5C4B985E51">
+          <text>75</text>
+        </outputEntry>
+        <annotationEntry>
+          <text>&quot;Traveler is less than 25&quot;</text>
+        </annotationEntry>
+      </rule>
+      <rule id="_44BAC8AA-44AC-428F-83D4-8C41C17FC08F">
+        <inputEntry id="_6B53AAA7-EEDB-4011-90DC-EEBA49CE2294">
+          <text>(25..65]</text>
+        </inputEntry>
+        <outputEntry id="_520360FB-9211-4C11-94C6-54932EF97370">
+          <text>50</text>
+        </outputEntry>
+        <annotationEntry>
+          <text></text>
+        </annotationEntry>
+      </rule>
+      <rule id="_BA4B6888-4DF9-43F6-BA71-71434E6B275C">
+        <inputEntry id="_ACAD7BA9-5747-4CEE-B11C-333737F87C2E">
+          <text>&gt;65</text>
+        </inputEntry>
+        <outputEntry id="_6A9A44CD-BCD5-4B5E-B77F-31F750B09262">
+          <text>100</text>
+        </outputEntry>
+        <annotationEntry>
+          <text></text>
+        </annotationEntry>
+      </rule>
+    </decisionTable>
   </decision>
   <decision name="Claim Assessment" id="_92FF0268-3F8D-43A4-8C40-2AC5A926A7C2">
     <variable name="Claim Assessment" id="_D89F8610-DFA5-4E1B-991A-062CE3824BA5" typeRef="number" />
@@ -90,7 +132,18 @@
     <dmndi:DMNDiagram id="_CCDC66A9-07D3-4C2C-BF22-FD3596B8EEED" name="Default DRD" useAlternativeInputDataShape="false">
       <di:extension>
         <kie:ComponentsWidthsExtension>
-          <kie:ComponentWidths />
+          <kie:ComponentWidths dmnElementRef="_CF1D84B7-0D1A-48D0-AE7F-A3B68D2200E4">
+            <kie:width>60</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>240</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_587DF773-9786-47B7-8A9D-77A8D5AF2332">
+            <kie:width>60</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>240</kie:width>
+          </kie:ComponentWidths>
         </kie:ComponentsWidthsExtension>
       </di:extension>
       <dmndi:DMNShape id="_E992F1DC-9A6C-46AF-AE76-5E6B625A3601" dmnElementRef="_65D50684-F467-491C-BB1C-61B1BC67829A" isCollapsed="false" isListedInputData="false">
