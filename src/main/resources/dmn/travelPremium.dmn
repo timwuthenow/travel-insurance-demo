@@ -2,7 +2,7 @@
 <definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="https://kie.org/dmn/_76E84EAA-521D-4CB4-AF89-EC203F5E1129" id="_D39EC2A7-6CE5-4B60-8F2E-C19F11E28DED" name="travelPremium">
   <itemDefinition id="_135801A3-A870-4ACF-9825-BDDA7B4CB56D" name="Trip Details" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
     <description>Details of the trip</description>
-    <itemComponent id="_B1F9B8EE-7091-4E03-89D7-6EDCE5002B1D" name="countries" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <itemComponent id="_B1F9B8EE-7091-4E03-89D7-6EDCE5002B1D" name="country" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <typeRef>string</typeRef>
     </itemComponent>
     <itemComponent id="_F126A048-8E42-4CE9-BCDB-18804766F3F4" name="end date" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
@@ -61,6 +61,9 @@
     <informationRequirement id="_6E7F9746-5F66-4603-A7DC-DFBEFBC8524A">
       <requiredDecision href="#_47922A50-7F47-489C-BDD3-DBEB8AEAB90D" />
     </informationRequirement>
+    <literalExpression id="_99B0F7DC-AAFF-4CDF-9242-46B60959220E" typeRef="number" label="Final Premium">
+      <text>Base Premium * Claim Assessment * Destination Risk Factor * Medical Assessment</text>
+    </literalExpression>
   </decision>
   <decision name="Base Premium" id="_F2D68769-2EB0-41B1-9664-4109FE92D2D5">
     <variable name="Base Premium" id="_C4ED8CC3-C3EC-49D8-BC6C-399A194F4881" typeRef="number" />
@@ -244,13 +247,122 @@
     <informationRequirement id="_4C5624E3-90A5-4107-A74C-C07A1B64C957">
       <requiredInput href="#_9E4BC474-F758-482B-91F5-6D08770F83BB" />
     </informationRequirement>
+    <knowledgeRequirement id="_31ABFE1B-5EB5-4EB6-85B5-12C9C76187BE">
+      <requiredKnowledge href="#_5D830D37-72A0-4164-805D-04E71DD4BFEE" />
+    </knowledgeRequirement>
     <context id="_6A88BFFA-A142-4D22-9E2D-001FBDDA1E3F" typeRef="number" label="Destination Risk Factor">
       <contextEntry id="_B6DE7A3F-7EB7-4427-B95A-5FAA95D3BEFB">
-        <variable id="_4950C980-27F5-4255-B79C-8784EF71A7FF" name="ContextEntry-1" />
+        <variable id="_4950C980-27F5-4255-B79C-8784EF71A7FF" name="Highest Risk" typeRef="string" />
+        <literalExpression id="_B20B6FD5-EDC4-415C-A565-E74A52327622" typeRef="string" label="Highest Risk">
+          <text>if some country in Trip Details.country satisfies Country Risk Level(country) = &quot;High&quot;
+then &quot;High&quot;
+else if some country in Trip Details.country satisfies Country Risk Level(country) = &quot;Medium&quot;
+then &quot;Medium&quot;
+else &quot;Low&quot;</text>
+        </literalExpression>
       </contextEntry>
-      <contextEntry id="_1F5130E2-74A7-4484-B510-DCCB449710A7" />
+      <contextEntry id="_EFCF2BA0-3B94-4D1D-AAF7-B2C7B54ED6CA">
+        <variable id="_1C260317-1F1E-4BD7-9046-690924338B7C" name="Risk Factor" typeRef="number">
+          <description></description>
+        </variable>
+        <decisionTable id="_9BD12234-BDF2-4145-B0E5-51590F043BA6" typeRef="number" hitPolicy="UNIQUE" label="Risk Factor">
+          <input id="_77EFC459-07CA-4452-BB7E-5CA568CA78CA">
+            <inputExpression id="_43CBB796-159E-47F8-9D2B-17A3460F924F" typeRef="string">
+              <text>Highest Risk</text>
+            </inputExpression>
+          </input>
+          <output id="_2B072FEB-C12A-4081-A24C-AF86BFCA1122" name="Output-1" />
+          <annotation name="Annotations" />
+          <rule id="_FE833B50-EE8F-45BC-9057-D2FA1CA08BE2">
+            <inputEntry id="_92E18464-72AB-415B-9229-57E5F66C6F67">
+              <text>&quot;High&quot;</text>
+            </inputEntry>
+            <outputEntry id="_1EDCC7F6-C64F-4E50-A0EA-C338B9F3F554">
+              <text>1.6</text>
+            </outputEntry>
+            <annotationEntry>
+              <text>// Your annotations here</text>
+            </annotationEntry>
+          </rule>
+          <rule id="_F136B744-67B9-4C64-ADA5-1B3BD25C898B">
+            <inputEntry id="_46C59BEB-50C6-4390-91F7-CE2007749C66">
+              <text>&quot;Medium&quot;</text>
+            </inputEntry>
+            <outputEntry id="_5F4A3523-DA64-41C7-9982-5DEF9E6E3879">
+              <text>1.4</text>
+            </outputEntry>
+            <annotationEntry>
+              <text></text>
+            </annotationEntry>
+          </rule>
+          <rule id="_750373B6-8185-4EEE-BBDF-8850356C9BDB">
+            <inputEntry id="_C2D7F6DD-9AC8-42D4-8BFF-931C9D3BC8A2">
+              <text>&quot;Low&quot;</text>
+            </inputEntry>
+            <outputEntry id="_68B6AFBA-6407-42EB-8ABA-47EE9775A449">
+              <text>1</text>
+            </outputEntry>
+            <annotationEntry>
+              <text></text>
+            </annotationEntry>
+          </rule>
+        </decisionTable>
+      </contextEntry>
+      <contextEntry id="_1F5130E2-74A7-4484-B510-DCCB449710A7">
+        <literalExpression id="_21BAF76A-3BC9-4028-AEC5-0C5187DCC9A1" typeRef="number" label="Destination Risk Factor">
+          <text>Risk Factor</text>
+        </literalExpression>
+      </contextEntry>
     </context>
   </decision>
+  <businessKnowledgeModel name="Country Risk Level" id="_5D830D37-72A0-4164-805D-04E71DD4BFEE">
+    <variable name="Country Risk Level" id="_4BD0D196-874B-4B97-B663-CAC19445775C" typeRef="string" />
+    <encapsulatedLogic label="Country Risk Level" typeRef="string" id="_E78098B0-7863-45FE-8103-5B473D3EA929" kind="FEEL">
+      <formalParameter id="_A4E8FCE0-6844-4FAB-926A-37BB8062D317" name="country" typeRef="string" />
+      <decisionTable id="_168A5AA1-668A-46E0-86FA-074E3B568BD5" typeRef="string" hitPolicy="FIRST" label="Return">
+        <input id="_BC2D6125-91E9-4EC0-8E48-079040C5CB9B">
+          <inputExpression id="_FEFA6A1E-112B-4827-AABB-61719B93DD48" typeRef="string">
+            <text>country</text>
+          </inputExpression>
+        </input>
+        <output id="_FAE6AA85-BD9C-421D-8498-257EE4AC43AB" name="Output-1" />
+        <annotation name="Annotations" />
+        <rule id="_AA89320F-576C-474F-94CE-14C888DFE549">
+          <inputEntry id="_83B33296-A2F7-4CF1-9F20-FB5474D9442A">
+            <text>&quot;Iraq&quot;</text>
+          </inputEntry>
+          <outputEntry id="_674C50D0-8988-4842-A287-5A01B80493F0">
+            <text>&quot;High&quot;</text>
+          </outputEntry>
+          <annotationEntry>
+            <text>// Your annotations here</text>
+          </annotationEntry>
+        </rule>
+        <rule id="_DF79B650-1956-4B89-B74A-11D12C5626A9">
+          <inputEntry id="_334324DE-0DAF-4F4D-BCE5-790391F4D981">
+            <text>&quot;Brazil&quot;</text>
+          </inputEntry>
+          <outputEntry id="_EFC622BA-A620-4776-AC91-9BD1FBC3333B">
+            <text>&quot;Medium&quot;</text>
+          </outputEntry>
+          <annotationEntry>
+            <text></text>
+          </annotationEntry>
+        </rule>
+        <rule id="_70C82322-68EE-4071-8AFC-FD20405A135D">
+          <inputEntry id="_6FA06A02-3B49-468B-B4F1-012F4045723E">
+            <text>-</text>
+          </inputEntry>
+          <outputEntry id="_F3008C38-890D-4A9B-981B-63CAA2FFAAC4">
+            <text>&quot;Low&quot;</text>
+          </outputEntry>
+          <annotationEntry>
+            <text></text>
+          </annotationEntry>
+        </rule>
+      </decisionTable>
+    </encapsulatedLogic>
+  </businessKnowledgeModel>
   <dmndi:DMNDI>
     <dmndi:DMNDiagram id="_CCDC66A9-07D3-4C2C-BF22-FD3596B8EEED" name="Default DRD" useAlternativeInputDataShape="false">
       <di:extension>
@@ -281,6 +393,27 @@
           </kie:ComponentWidths>
           <kie:ComponentWidths dmnElementRef="_6A88BFFA-A142-4D22-9E2D-001FBDDA1E3F">
             <kie:width>120</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_168A5AA1-668A-46E0-86FA-074E3B568BD5">
+            <kie:width>60</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>240</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_B20B6FD5-EDC4-415C-A565-E74A52327622">
+            <kie:width>673</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_9BD12234-BDF2-4145-B0E5-51590F043BA6">
+            <kie:width>60</kie:width>
+            <kie:width>157</kie:width>
+            <kie:width>157</kie:width>
+            <kie:width>319</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_21BAF76A-3BC9-4028-AEC5-0C5187DCC9A1">
+            <kie:width>673</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_99B0F7DC-AAFF-4CDF-9242-46B60959220E">
+            <kie:width>788</kie:width>
           </kie:ComponentWidths>
         </kie:ComponentsWidthsExtension>
       </di:extension>
@@ -336,6 +469,13 @@
       <dmndi:DMNEdge id="_F937E747-77E2-4F3C-932F-11825AA215AC" dmnElementRef="_6E7F9746-5F66-4603-A7DC-DFBEFBC8524A" sourceElement="_9BC9DA6B-84B8-4091-BCB9-8344487A4DFF" targetElement="_EF1E942E-B2DD-43A8-B902-21D4CFEC7132">
         <di:waypoint x="200" y="160" />
         <di:waypoint x="620" y="-20" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="_DA721152-DDA2-41B2-BBBE-F5A8F76F8DB0" dmnElementRef="_5D830D37-72A0-4164-805D-04E71DD4BFEE" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="-40" y="0" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="_3EA869E5-B5B2-4485-97D8-18E3A11057D2" dmnElementRef="_31ABFE1B-5EB5-4EB6-85B5-12C9C76187BE" sourceElement="_DA721152-DDA2-41B2-BBBE-F5A8F76F8DB0" targetElement="_9BC9DA6B-84B8-4091-BCB9-8344487A4DFF">
+        <di:waypoint x="40" y="40" />
+        <di:waypoint x="200" y="160" />
       </dmndi:DMNEdge>
     </dmndi:DMNDiagram>
   </dmndi:DMNDI>
