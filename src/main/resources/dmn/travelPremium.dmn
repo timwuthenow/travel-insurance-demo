@@ -115,6 +115,70 @@
     <informationRequirement id="_6521E0F2-53C9-4DD9-BA5B-A44EC5E26994">
       <requiredInput href="#_65D50684-F467-491C-BB1C-61B1BC67829A" />
     </informationRequirement>
+    <decisionTable id="_161A5180-91B6-4BAF-A83A-0FFAF8FFC28F" typeRef="number" hitPolicy="COLLECT" label="Claim Assessment" aggregation="MAX">
+      <input id="_296DF46C-AF07-461D-8151-8750B2D6EFD2">
+        <inputExpression id="_65992AA2-D382-465B-981F-2D738D621291" typeRef="claim">
+          <text>Traveler.claim history[status=&quot;Approved&quot;]</text>
+        </inputExpression>
+      </input>
+      <output id="_444E853E-525F-4B37-928C-8048A79AF91C" name="Output-1" />
+      <annotation name="Annotations" />
+      <rule id="_8B2FB1A3-0551-42E2-BD43-1124029A098D">
+        <inputEntry id="_6DD10B63-DF9D-4A7B-8661-47CEAAC552EC">
+          <text>count(?) = 0</text>
+        </inputEntry>
+        <outputEntry id="_37333054-3ED5-4C5F-A834-29D5F05313D6">
+          <text>0.9</text>
+        </outputEntry>
+        <annotationEntry>
+          <text></text>
+        </annotationEntry>
+      </rule>
+      <rule id="_F682CB0E-103C-46C3-99C8-67DDFD8AF33C">
+        <inputEntry id="_E13D4737-006F-488A-A6C4-5F9E0948A6D6">
+          <text>count(?) &lt;= 2</text>
+        </inputEntry>
+        <outputEntry id="_AC099E86-D695-493D-99B9-5117CAF1600F">
+          <text>1.1</text>
+        </outputEntry>
+        <annotationEntry>
+          <text></text>
+        </annotationEntry>
+      </rule>
+      <rule id="_5337FCFA-528D-4655-92AB-9188B14AF067">
+        <inputEntry id="_0013FAC2-7E85-40F1-9C8B-EEBCB1D55C2F">
+          <text>sum(?.total claim amount) &gt; 1000</text>
+        </inputEntry>
+        <outputEntry id="_D6210055-1DCC-4B51-8066-5CD967902D0C">
+          <text>1.4</text>
+        </outputEntry>
+        <annotationEntry>
+          <text></text>
+        </annotationEntry>
+      </rule>
+      <rule id="_50336025-B69D-48EC-9E2C-BD3004CF2170">
+        <inputEntry id="_16629E6D-F452-48B0-938D-E41AC37D1786">
+          <text>count(?) &gt; 2</text>
+        </inputEntry>
+        <outputEntry id="_0BAB913D-0C90-438B-9A9C-48D7BC98E782">
+          <text>1.3</text>
+        </outputEntry>
+        <annotationEntry>
+          <text></text>
+        </annotationEntry>
+      </rule>
+      <rule id="_720C1037-6935-4C83-87DC-093172C5F697">
+        <inputEntry id="_BF554128-0A58-4B1F-BF49-A502D435AE75">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="_D6743EC0-6CA5-4B4E-B83E-43935ADED76B">
+          <text>1</text>
+        </outputEntry>
+        <annotationEntry>
+          <text></text>
+        </annotationEntry>
+      </rule>
+    </decisionTable>
   </decision>
   <decision name="Medical Assessment" id="_5EC40AD3-4E99-48F8-90A8-78E763904F2D">
     <variable id="_AFCF0856-370E-427A-8EF4-D5B064456EA8" typeRef="number" name="Medical Assessment" />
@@ -141,6 +205,12 @@
           <kie:ComponentWidths dmnElementRef="_587DF773-9786-47B7-8A9D-77A8D5AF2332">
             <kie:width>60</kie:width>
             <kie:width>118</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>240</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_161A5180-91B6-4BAF-A83A-0FFAF8FFC28F">
+            <kie:width>60</kie:width>
+            <kie:width>510</kie:width>
             <kie:width>118</kie:width>
             <kie:width>240</kie:width>
           </kie:ComponentWidths>
