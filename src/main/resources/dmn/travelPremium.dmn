@@ -244,6 +244,12 @@
     <informationRequirement id="_4C5624E3-90A5-4107-A74C-C07A1B64C957">
       <requiredInput href="#_9E4BC474-F758-482B-91F5-6D08770F83BB" />
     </informationRequirement>
+    <context id="_6A88BFFA-A142-4D22-9E2D-001FBDDA1E3F" typeRef="number" label="Destination Risk Factor">
+      <contextEntry id="_B6DE7A3F-7EB7-4427-B95A-5FAA95D3BEFB">
+        <variable id="_4950C980-27F5-4255-B79C-8784EF71A7FF" name="ContextEntry-1" />
+      </contextEntry>
+      <contextEntry id="_1F5130E2-74A7-4484-B510-DCCB449710A7" />
+    </context>
   </decision>
   <dmndi:DMNDI>
     <dmndi:DMNDiagram id="_CCDC66A9-07D3-4C2C-BF22-FD3596B8EEED" name="Default DRD" useAlternativeInputDataShape="false">
@@ -272,6 +278,9 @@
             <kie:width>668</kie:width>
             <kie:width>151</kie:width>
             <kie:width>240</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_6A88BFFA-A142-4D22-9E2D-001FBDDA1E3F">
+            <kie:width>120</kie:width>
           </kie:ComponentWidths>
         </kie:ComponentsWidthsExtension>
       </di:extension>
