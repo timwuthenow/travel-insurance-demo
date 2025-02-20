@@ -1,0 +1,23 @@
+package org.kie.drl.insurance;
+
+unit InsuranceUnit;
+
+import org.kie.drl.insurance.TravelInsuranceApplication;
+
+rule "Approve Low Risk Applications"
+
+when $a:/applications[  traveler.age>=16,   tripDuration<=30]
+
+then
+
+modify($a){setApproved(true)};
+
+end
+
+query FindApproved
+    $a: /applications[ approved ]
+end
+
+query FindNotApproved
+    $a: /applications[ !approved ]
+end
